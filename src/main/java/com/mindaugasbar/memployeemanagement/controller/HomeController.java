@@ -15,4 +15,14 @@ public class HomeController {
     public String index() {
         return "index";
     }
+
+    @RequestMapping("/statistics")
+    public String statistics() {
+        return "statistics";
+    }
+
+    @RequestMapping("/signup")
+    public String signUp() {
+        return "signup";
+    }
 }

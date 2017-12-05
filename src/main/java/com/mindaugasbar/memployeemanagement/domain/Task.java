@@ -2,16 +2,14 @@ package com.mindaugasbar.memployeemanagement.domain;
 
 import org.hibernate.validator.constraints.Length;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 
 @Entity
+@Table(name = "ttask")
 public class Task {
     protected enum Priority { LOW, MEDIUM, HIGH, CRITICAL}
     protected enum Status {TODO, IN_PROGRESS, IN_REVIEW, DONE}

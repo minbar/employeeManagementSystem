@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
+@Table(name = "temployee")
 public class Employee {
     protected enum Role {ADMINISTRATOR, MANAGER, EMPLOYEE}
     protected enum Gender {MALE, FEMALE}

@@ -1,0 +1,17 @@
+
+
+body {
+    background-image: url("/images/homeBackground.jpg");
+    background-repeat: no-repeat;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+    font-family: "Times New Roman", Times, serif;
+}
+
+.wrapper {
+    background-color: white;
+    width: 90%;
+    margin: auto;
+}
+

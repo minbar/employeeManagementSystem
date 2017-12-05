@@ -3,9 +3,11 @@ package com.mindaugasbar.memployeemanagement.domain;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Date;
 
 @Entity
+@Table(name = "tcomment")
 public class Comment {
     protected enum Type {PROBLEM, QUESTION, INFORMATIONAL_MESSAGE}
 
