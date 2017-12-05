@@ -1,7 +1,11 @@
 package com.mindaugasbar.memployeemanagement.controller;
 
+import com.mindaugasbar.memployeemanagement.domain.Employee;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class HomeController {
@@ -21,8 +25,15 @@ public class HomeController {
         return "statistics";
     }
 
-    @RequestMapping("/signup")
-    public String signUp() {
+    @RequestMapping(name = "/signup", method = RequestMethod.GET)
+    public String signUp(Model model) {
+        Employee employee = new Employee();
+        model.addAttribute(employee);
+        return "signup";
+    }
+
+    @RequestMapping(name = "/signup", method = RequestMethod.POST)
+    public String signUpPost(@ModelAttribute("employee") Employee employee, Model model) {
         return "signup";
     }
 }

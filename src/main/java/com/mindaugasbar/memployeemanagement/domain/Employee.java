@@ -58,7 +58,35 @@ public class Employee {
     @OneToMany
     private List<Task> tasksDone = new ArrayList<>();
 
+    private int phone;
+
     private Role role;
+
+    private String email;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public int getId() {
+        return Id;
+    }
+
+    public void setId(int id) {
+        Id = id;
+    }
+
+    public int getPhone() {
+        return phone;
+    }
+
+    public void setPhone(int phone) {
+        this.phone = phone;
+    }
 
     public List<Task> getTasksToBeDone() {
         return tasksToBeDone;
