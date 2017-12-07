@@ -19,7 +19,7 @@ public class EmployeeController {
     @RequestMapping("/employees")
     public String employees(Model model) {
         List<Employee> employees = employeeService.getEmployees();
-        model.addAllAttributes(employees);
+        model.addAttribute("employees", employees);
         return "employees";
     }
 

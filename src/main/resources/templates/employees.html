@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/header :: common-header"/>
+<body>
+    <div class="wrapper">
+        <div th:if="${not #lists.isEmpty(employees)}">
+            <h2>Employee list</h2>
+            <table class="table table-striped">
+                <tr>
+                    <th>Id</th>
+                    <th>first name</th>
+                    <th>last name</th>
+                    <th>age</th>
+                    <th>email</th>
+                    <th>working hours</th>
+                </tr>
+                <tr th:each="employee : ${employees}">
+                    <td th:text="${employee.getId()}"></td>
+                    <td th:text="${employee.getfirstName()}"></td>
+                    <td th:text="${employee.getLastName()}"></td>
+                    <td th:text="${employee.getAge()}"></td>
+                    <td th:text="${employee.getEmail()}"></td>
+                    <td th:text="${employee.getWorkingHours()}"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
