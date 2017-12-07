@@ -54,4 +54,6 @@ public interface EmployeeService {
      * @return the update employee.
      */
     Employee updateEmployeeDetails(Employee employee) throws MissingEmployeeException;
+
+    Employee updateEmployeeNonNullFields(Employee employee) throws MissingEmployeeException;
 }

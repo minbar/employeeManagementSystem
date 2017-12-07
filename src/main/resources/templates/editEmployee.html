@@ -9,7 +9,7 @@
     <div class="wrapper">
         <div class="container">
             <form th:action="'/editEmployee/' + ${employee.getUsername()}" method="post">
-                <input class="form-control" hidden="hidden" name="employeeId" th:value="${employee.getId()}"/>
+                <input class="form-control" type="hidden" name="id" th:value="${employee.getId()}"/>
                 <input class="form-control" name="firstName" th:value="${employee.getFirstName()}"/>
                 <input class="form-control" name="lastName" th:value="${employee.getLastName()}"/>
                 <input class="form-control" name="age" th:value="${employee.getAge()}"/>

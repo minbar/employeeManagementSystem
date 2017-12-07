@@ -17,7 +17,7 @@ public class Employee {
 
     @Id
     @GeneratedValue
-    private int Id;
+    private Integer Id;
 
     @Column(name = "FirstName")
     private String firstName;
@@ -28,12 +28,12 @@ public class Employee {
     @Column(name = "Age")
     @Min(10)
     @Max(100)
-    private int age;
+    private Integer age;
 
     @Min(0)
     @Max(80)
     @Column(name = "WorkingHours")
-    private int workingHours;
+    private Integer workingHours;
 
     @Column(name = "StartedWorking")
     private Date startedWorkingDate;
@@ -42,7 +42,7 @@ public class Employee {
     private Gender gender;
 
     @Column(name = "Earned vacation days")
-    private int earnedVacationDays = 0;
+    private Integer earnedVacationDays = 0;
 
     private  boolean enabled = true;
 
@@ -58,7 +58,7 @@ public class Employee {
     @OneToMany
     private List<Task> tasksDone = new ArrayList<>();
 
-    private int phone;
+    private Integer phone;
 
     private Role role;
 
@@ -72,7 +72,7 @@ public class Employee {
         this.email = email;
     }
 
-    public int getId() {
+    public Integer getId() {
         return Id;
     }
 
@@ -80,7 +80,7 @@ public class Employee {
         Id = id;
     }
 
-    public int getPhone() {
+    public Integer getPhone() {
         return phone;
     }
 
@@ -144,7 +144,7 @@ public class Employee {
         this.lastName = lastName;
     }
 
-    public int getAge() {
+    public Integer getAge() {
         return age;
     }
 
@@ -152,7 +152,7 @@ public class Employee {
         this.age = age;
     }
 
-    public int getWorkingHours() {
+    public Integer getWorkingHours() {
         return workingHours;
     }
 
@@ -176,7 +176,7 @@ public class Employee {
         this.gender = gender;
     }
 
-    public int getEarnedVacationDays() {
+    public Integer getEarnedVacationDays() {
         return earnedVacationDays;
     }
 
