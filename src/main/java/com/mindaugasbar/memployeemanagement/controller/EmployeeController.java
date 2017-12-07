@@ -60,7 +60,7 @@ public class EmployeeController {
            throw new MissingEmployeeException(message);
        }
        employeeService.deleteEmployee(employeeToBeDeleted.getId());
-       return "employees";
+       return "redirect:/employees";
     }
 
     @RequestMapping(path = "/addEmployee", method = RequestMethod.GET)
