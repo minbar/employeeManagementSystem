@@ -52,6 +52,17 @@ public class EmployeeController {
         return "editEmployee";
     }
 
+    @RequestMapping("/deleteEmployee/{username}")
+    public String deleteEmployee(@PathVariable(value = "username") String username) throws MissingEmployeeException {
+       Employee employeeToBeDeleted = employeeService.getEmployeeByUsername(username);
+       if(employeeToBeDeleted == null) {
+           final String message = format("the employee with username:[%s] could not be found", username);
+           throw new MissingEmployeeException(message);
+       }
+       employeeService.deleteEmployee(employeeToBeDeleted.getId());
+       return "employees";
+    }
+
     @Autowired
     public void setEmployeeService(EmployeeService employeeService) {
         this.employeeService = employeeService;
