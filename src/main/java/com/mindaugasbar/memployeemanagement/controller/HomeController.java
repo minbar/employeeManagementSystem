@@ -24,17 +24,4 @@ public class HomeController {
     public String statistics() {
         return "statistics";
     }
-
-    @RequestMapping(path = "/signup", method = RequestMethod.GET)
-    public String signUp(Model model) {
-        Employee employee = new Employee();
-        model.addAttribute(employee);
-        return "signup";
-    }
-
-    @RequestMapping(path = "/signup", method = RequestMethod.POST)
-    public String signUpPost(@ModelAttribute("employee") Employee employee, Model model) {
-        model.addAttribute("employee", employee);
-        return "signup";
-    }
 }

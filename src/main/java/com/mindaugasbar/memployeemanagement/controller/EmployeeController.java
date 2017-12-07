@@ -63,6 +63,20 @@ public class EmployeeController {
        return "employees";
     }
 
+    @RequestMapping(path = "/addEmployee", method = RequestMethod.GET)
+    public String signUp(Model model) {
+        Employee employee = new Employee();
+        model.addAttribute(employee);
+        return "addEmployee";
+    }
+
+    @RequestMapping(path = "/addEmployee", method = RequestMethod.POST)
+    public String signUpPost(@ModelAttribute("employee") Employee employee, Model model) {
+        employeeService.addEmployee(employee);
+        model.addAttribute("employee", new Employee());
+        return "addEmployee";
+    }
+
     @Autowired
     public void setEmployeeService(EmployeeService employeeService) {
         this.employeeService = employeeService;

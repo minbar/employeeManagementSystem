@@ -6,7 +6,7 @@
     <div class="wrapper">
         <div th:replace="header :: navbar"/>
         <div class="container">
-            <button class="btn btn-default"><a href="signup.html">Add Employee</a></button>
+            <button class="btn btn-default"><a href="addEmployee.html">Add Employee</a></button>
         </div>
         <div class="container" th:if="${not #lists.isEmpty(employees)}">
             <h2>Employee list</h2>
