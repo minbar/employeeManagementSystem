@@ -3,6 +3,7 @@ package com.mindaugasbar.memployeemanagement.controller;
 import com.mindaugasbar.memployeemanagement.domain.Employee;
 import com.mindaugasbar.memployeemanagement.exceptions.MissingEmployeeException;
 import com.mindaugasbar.memployeemanagement.service.EmployeeService;
+import com.mindaugasbar.memployeemanagement.service.validators.EmployeeDataValidator;
 import org.hibernate.service.spi.InjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,6 +23,7 @@ public class EmployeeController {
 
 
     private EmployeeService employeeService;
+    private EmployeeDataValidator employeeDataValidator;
 
     @RequestMapping(path = "/employees", method = RequestMethod.GET)
     public String employees(Model model) {
@@ -30,7 +32,7 @@ public class EmployeeController {
         return "employees";
     }
 
-    @RequestMapping("/editEmployee/{username}")
+    @RequestMapping(path = "/editEmployee/{username}", method = RequestMethod.GET)
     public String editEmployee(@PathVariable(value = "username") String username, Model model) throws MissingEmployeeException {
         Employee employee = employeeService.getEmployeeByUsername(username);
         if(employee == null) {
@@ -41,8 +43,24 @@ public class EmployeeController {
         return "editEmployee";
     }
 
+    @RequestMapping(path = "/editEmployee/{username}", method = RequestMethod.POST)
+    public String editEmployeePost(@PathVariable(value = "username") String username, @RequestAttribute("employee") Employee employee, Model model) {
+        try {
+            employeeService.updateEmployeeDetails(employee);
+        } catch (MissingEmployeeException exception) {
+            System.out.println(exception.getMessage());
+            System.out.println(exception.getStackTrace());
+        }
+        return "editEmployee";
+    }
+
     @Autowired
     public void setEmployeeService(EmployeeService employeeService) {
         this.employeeService = employeeService;
+    }
+
+    @Autowired
+    public void setEmployeeDataValidator(EmployeeDataValidator employeeDataValidator) {
+        this.employeeDataValidator = employeeDataValidator;
     }
 }
