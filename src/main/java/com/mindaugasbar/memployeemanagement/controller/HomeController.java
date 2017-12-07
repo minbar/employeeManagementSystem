@@ -25,15 +25,16 @@ public class HomeController {
         return "statistics";
     }
 
-    @RequestMapping(name = "/signup", method = RequestMethod.GET)
+    @RequestMapping(path = "/signup", method = RequestMethod.GET)
     public String signUp(Model model) {
         Employee employee = new Employee();
         model.addAttribute(employee);
         return "signup";
     }
 
-    @RequestMapping(name = "/signup", method = RequestMethod.POST)
+    @RequestMapping(path = "/signup", method = RequestMethod.POST)
     public String signUpPost(@ModelAttribute("employee") Employee employee, Model model) {
+        model.addAttribute("employee", employee);
         return "signup";
     }
 }

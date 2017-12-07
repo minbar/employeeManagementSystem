@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
-<head th:replace="common/header :: common-header"/>
+<head th:replace="header :: common-header"/>
 <body>
     <div class="wrapper">
-        <div th:if="${not #lists.isEmpty(employees)}">
+        <div th:replace="header :: navbar"/>
+        <div class="container">
+            <button class="btn btn-default"><a href="signup.html">Add Employee</a></button>
+        </div>
+        <div class="container" th:if="${not #lists.isEmpty(employees)}">
             <h2>Employee list</h2>
             <table class="table table-striped">
                 <tr>
@@ -16,15 +20,17 @@
                     <th>working hours</th>
                 </tr>
                 <tr th:each="employee : ${employees}">
-                    <td th:text="${employee.getId()}"></td>
-                    <td th:text="${employee.getfirstName()}"></td>
+                    <td th:text="${employee.id}"></td>
+                    <td th:text="${employee.getFirstName()}"></td>
                     <td th:text="${employee.getLastName()}"></td>
                     <td th:text="${employee.getAge()}"></td>
                     <td th:text="${employee.getEmail()}"></td>
                     <td th:text="${employee.getWorkingHours()}"></td>
+                    <td><form action="/editEmployee" method="post"><button type="submit" name="/editEmployee" th:value="${employee.id}" >Edit</button></form></td>
                 </tr>
             </table>
         </div>
     </div>
+    <div th:replace="header :: body-bottom-scripts"/>
 </body>
 </html>

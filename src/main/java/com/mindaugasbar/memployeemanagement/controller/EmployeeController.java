@@ -6,6 +6,7 @@ import org.hibernate.service.spi.InjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.List;
 public class EmployeeController {
 
 
-    EmployeeService employeeService;
+    private EmployeeService employeeService;
 
     @RequestMapping("/employees")
     public String employees(Model model) {
@@ -23,7 +24,13 @@ public class EmployeeController {
         return "employees";
     }
 
-    @InjectService
+    @RequestMapping("/editEmployee")
+    public String editEmployee(@RequestAttribute(name = "employee") Employee employee, Model model) {
+        model.addAttribute("employee", employee);
+        return "editEmployee";
+    }
+
+    @Autowired
     public void setEmployeeService(EmployeeService employeeService) {
         this.employeeService = employeeService;
     }
