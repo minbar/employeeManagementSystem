@@ -1,10 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="UTF-8"/>
+    <title>Edit Employee</title>
 </head>
 <body>
+    <div class="wrapper">
+        <div class="container">
+            <form action="editEmployee.html" method="post">
+                <input hidden="hidden" name="employeeId" th:value="${employee.getId()}"/>
+                <input name="firstName" th:value="${employee.getFirstName()}"/>
+                <input name="lastName" th:value="${employee.getLastName()}"/>
+                <input name="age" th:value="${employee.getAge()}"/>
+                <input name="workingHours" th:value="${employee.getWorkingHours()}"/>
+                <input name="gender" th:value="${employee.getGender()}"/>
+                <input name="enabled" th:value="${employee.isEnabled()}"/>
+                <input name="password" th:value="${employee.getPassword()}"/>
+            </form>
+        </div>
+    </div>
 
 </body>
 </html>
