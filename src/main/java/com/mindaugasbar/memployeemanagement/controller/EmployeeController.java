@@ -20,7 +20,6 @@ public class EmployeeController {
 
 
     private EmployeeService employeeService;
-    private EmployeeDataValidator employeeDataValidator;
 
     @RequestMapping(path = "/employees", method = RequestMethod.GET)
     public String employees(Model model) {
@@ -80,10 +79,5 @@ public class EmployeeController {
     @Autowired
     public void setEmployeeService(EmployeeService employeeService) {
         this.employeeService = employeeService;
-    }
-
-    @Autowired
-    public void setEmployeeDataValidator(EmployeeDataValidator employeeDataValidator) {
-        this.employeeDataValidator = employeeDataValidator;
     }
 }

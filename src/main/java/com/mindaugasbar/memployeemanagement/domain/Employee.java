@@ -5,6 +5,8 @@ import org.hibernate.validator.constraints.Length;
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -28,6 +30,7 @@ public class Employee {
     @Column(name = "Age")
     @Min(10)
     @Max(100)
+    @NotNull
     private Integer age;
 
     @Min(0)
@@ -36,7 +39,7 @@ public class Employee {
     private Integer workingHours;
 
     @Column(name = "StartedWorking")
-    private Date startedWorkingDate;
+    private LocalDate startedWorkingDate = LocalDate.now();
 
     @Column(name = "Gender")
     private Gender gender;
@@ -160,11 +163,11 @@ public class Employee {
         this.workingHours = workingHours;
     }
 
-    public Date getStartedWorkingDate() {
+    public LocalDate getStartedWorkingDate() {
         return startedWorkingDate;
     }
 
-    public void setStartedWorkingDate(Date startedWorkingDate) {
+    public void setStartedWorkingDate(LocalDate startedWorkingDate) {
         this.startedWorkingDate = startedWorkingDate;
     }
 
