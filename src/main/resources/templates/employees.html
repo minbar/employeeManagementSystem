@@ -26,8 +26,8 @@
                     <td th:text="${employee.getAge()}"></td>
                     <td th:text="${employee.getEmail()}"></td>
                     <td th:text="${employee.getWorkingHours()}"></td>
-                    <td><form th:action="'/editEmployee/' + ${employee.getUsername()}" method="get"><button class="btn btn-default" type="submit" name="editEmployee" >Edit</button></form></td>
-                    <td><form th:action="'/deleteEmployee/' + ${employee.getUsername()}" method="get"><button class="btn btn-danger" type="submit" name="deleteEmployee">Delete</button></form> </td>
+                    <td><form th:action="'/editEmployee/' + ${employee.getId()}" method="get"><button class="btn btn-default" type="submit" name="editEmployee" >Edit</button></form></td>
+                    <td><form th:action="'/deleteEmployee/' + ${employee.getId()}" method="get"><button class="btn btn-danger" type="submit" name="deleteEmployee">Delete</button></form> </td>
                 </tr>
             </table>
         </div>

@@ -11,7 +11,7 @@
                     <div class="form_main">
                         <h4 class="heading"><strong>Edit </strong> Employee <span></span></h4>
                         <div class="form">
-                            <form th:action="'/editEmployee/' + ${employee.getUsername()}" method="post" id="contactFrm" name="contactFrm">
+                            <form th:action="'/editEmployee/' + ${employee.getId()}" method="post" id="contactFrm" name="contactFrm">
                                 <input class="form-control txt" type="hidden" name="id" th:value="${employee.getId()}" />
 
                                 <label for="firstName">First Name</label>
