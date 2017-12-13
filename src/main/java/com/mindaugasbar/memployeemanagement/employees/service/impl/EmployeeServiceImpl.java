@@ -1,9 +1,9 @@
-package com.mindaugasbar.memployeemanagement.service.impl;
+package com.mindaugasbar.memployeemanagement.employees.service.impl;
 
-import com.mindaugasbar.memployeemanagement.dao.EmployeeDao;
-import com.mindaugasbar.memployeemanagement.domain.Employee;
+import com.mindaugasbar.memployeemanagement.employees.dao.EmployeeDao;
+import com.mindaugasbar.memployeemanagement.employees.domain.Employee;
 import com.mindaugasbar.memployeemanagement.exceptions.MissingEmployeeException;
-import com.mindaugasbar.memployeemanagement.service.EmployeeService;
+import com.mindaugasbar.memployeemanagement.employees.service.EmployeeService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
@@ -30,8 +30,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Employee getEmployeeByUsername(String name) {
-        return employeeDao.findByUsername(name);
+    public Employee getEmployeeById(long id) {
+        return employeeDao.findById(id);
     }
 
     @Override
@@ -41,7 +41,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Transactional
     @Override
-    public void deleteEmployee(int id) {
+    public void deleteEmployee(long id) {
         employeeDao.delete(id);
     }
 
@@ -63,14 +63,14 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Transactional
     @Override
     public Employee updateEmployeeDetails(Employee employee) throws MissingEmployeeException {
-        checkEmployeeExistsByUsername(employee.getUsername());
+        checkEmployeeExistsById(employee.getId());
         return employeeDao.save(employee);
     }
 
     @Transactional
     @Override
     public Employee updateEmployeeNonNullFields(Employee employee) throws MissingEmployeeException {
-        Employee existingEmployee = checkEmployeeExistsByUsername(employee.getUsername());
+        Employee existingEmployee = checkEmployeeExistsById(employee.getId());
         copyNonNullProperties(employee, existingEmployee);
         return employeeDao.save(existingEmployee);
     }
@@ -93,11 +93,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
 
-    private Employee checkEmployeeExistsByUsername(String username) throws MissingEmployeeException {
-        Employee employee = employeeDao.findByUsername(username);
+    private Employee checkEmployeeExistsById(long id) throws MissingEmployeeException {
+        Employee employee = employeeDao.findById(id);
         if (employee == null) {
             final String message = format("the employee with the first name:[%s], last name:[%s]" +
-                    "username: [%s]", employee.getFirstName(), employee.getLastName(), employee.getUsername());
+                    "username: [%s]", employee.getFirstName(), employee.getLastName(), employee.getUser().getUsername());
             throw new MissingEmployeeException(message);
         }
         return employee;

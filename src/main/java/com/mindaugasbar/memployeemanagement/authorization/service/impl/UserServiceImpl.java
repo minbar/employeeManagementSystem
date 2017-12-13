@@ -6,9 +6,9 @@ import com.mindaugasbar.memployeemanagement.authorization.domain.Role;
 import com.mindaugasbar.memployeemanagement.authorization.domain.User;
 import com.mindaugasbar.memployeemanagement.authorization.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.HashSet;
 
 @Service
@@ -16,14 +16,13 @@ public class UserServiceImpl implements UserService {
 
     private UserDao userDao;
     private RoleDao roleDao;
-    @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
-    public void save(User user) {
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        @SuppressWarnings(name = "uncheked");
-        user.setRoles(new HashSet<>(roleDao.findAll()));
+    public void save(User user, Role role) {
+        user.setPassword(user.getPassword());
+        user.setRole(role);
+
+
         userDao.save(user);
     }
 

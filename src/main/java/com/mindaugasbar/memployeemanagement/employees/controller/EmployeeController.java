@@ -1,16 +1,13 @@
-package com.mindaugasbar.memployeemanagement.controller;
+package com.mindaugasbar.memployeemanagement.employees.controller;
 
-import com.mindaugasbar.memployeemanagement.domain.Employee;
+import com.mindaugasbar.memployeemanagement.employees.domain.Employee;
 import com.mindaugasbar.memployeemanagement.exceptions.MissingEmployeeException;
-import com.mindaugasbar.memployeemanagement.service.EmployeeService;
-import com.mindaugasbar.memployeemanagement.service.validators.EmployeeDataValidator;
-import org.hibernate.service.spi.InjectService;
+import com.mindaugasbar.memployeemanagement.employees.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.websocket.server.PathParam;
 import java.util.List;
 
 import static java.lang.String.format;
@@ -28,21 +25,21 @@ public class EmployeeController {
         return "employees";
     }
 
-    @RequestMapping(path = "/editEmployee/{username}", method = RequestMethod.GET)
-    public String editEmployee(@PathVariable(value = "username") String username, Model model) throws MissingEmployeeException {
-        Employee employee = employeeService.getEmployeeByUsername(username);
+    @RequestMapping(path = "/editEmployee/{id}", method = RequestMethod.GET)
+    public String editEmployee(@PathVariable(value = "id") long id, Model model) throws MissingEmployeeException {
+        Employee employee = employeeService.getEmployeeById(id);
         if(employee == null) {
-            final String message = format("the employee with username:[%s] could not be found", username);
+            final String message = format("the employee with id:[%d] could not be found", id);
             throw new MissingEmployeeException(message);
         }
         model.addAttribute("employee", employee);
         return "editEmployee";
     }
 
-    @RequestMapping(path = "/editEmployee/{username}", method = RequestMethod.POST)
-    public String editEmployeePost(@PathVariable(value = "username") String username, @ModelAttribute("employee") Employee employee) {
+    @RequestMapping(path = "/editEmployee/{id}", method = RequestMethod.POST)
+    public String editEmployeePost(@PathVariable(value = "id") long id, @ModelAttribute("employee") Employee employee) {
         try {
-            Employee existring = employeeService.getEmployeeByUsername(username);
+            Employee existring = employeeService.getEmployeeById(id);
             employeeService.updateEmployeeNonNullFields(employee);
         } catch (MissingEmployeeException exception) {
             System.out.println(exception.getMessage());
@@ -51,11 +48,11 @@ public class EmployeeController {
         return "editEmployee";
     }
 
-    @RequestMapping("/deleteEmployee/{username}")
-    public String deleteEmployee(@PathVariable(value = "username") String username) throws MissingEmployeeException {
-       Employee employeeToBeDeleted = employeeService.getEmployeeByUsername(username);
+    @RequestMapping("/deleteEmployee/{id}")
+    public String deleteEmployee(@PathVariable(value = "id") long id) throws MissingEmployeeException {
+       Employee employeeToBeDeleted = employeeService.getEmployeeById(id);
        if(employeeToBeDeleted == null) {
-           final String message = format("the employee with username:[%s] could not be found", username);
+           final String message = format("the employee with id:[%d] could not be found", id);
            throw new MissingEmployeeException(message);
        }
        employeeService.deleteEmployee(employeeToBeDeleted.getId());

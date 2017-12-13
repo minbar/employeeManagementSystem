@@ -1,9 +1,8 @@
-package com.mindaugasbar.memployeemanagement.service;
+package com.mindaugasbar.memployeemanagement.employees.service;
 
-import com.mindaugasbar.memployeemanagement.domain.Employee;
+import com.mindaugasbar.memployeemanagement.employees.domain.Employee;
 import com.mindaugasbar.memployeemanagement.exceptions.MissingEmployeeException;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 public interface EmployeeService {
@@ -16,10 +15,10 @@ public interface EmployeeService {
     List<Employee> getEmployees();
     /**
      * finds a given employee by it's name.
-     * @param name the employee's name.
+     * @param id the employee's name.
      * @return the employee if found, otherwise null.
      */
-    Employee getEmployeeByUsername(String name);
+    Employee getEmployeeById(long id);
 
     /**
      * finds a given employee by it's email.
@@ -32,7 +31,7 @@ public interface EmployeeService {
      * delete the given employee.
      * @param id the employee id.
      */
-    void deleteEmployee(int id);
+    void deleteEmployee(long id);
 
     /**
      * deletes the emplyee.

@@ -1,5 +1,7 @@
-package com.mindaugasbar.memployeemanagement.domain;
+package com.mindaugasbar.memployeemanagement.employees.domain;
 
+import com.mindaugasbar.memployeemanagement.authorization.domain.User;
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
@@ -8,63 +10,52 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "temployee")
+@Table(name = "employee")
 public class Employee {
     protected enum Role {ADMINISTRATOR, MANAGER, EMPLOYEE}
     protected enum Gender {MALE, FEMALE}
 
     @Id
-    @GeneratedValue
-    private Integer Id;
-
-    @Column(name = "FirstName")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
+    @NotNull
     private String firstName;
-
-    @Column(name = "LastName")
+    @NotNull
     private String lastName;
-
-    @Column(name = "Age")
     @Min(10)
-    @Max(100)
+    @Max(120)
     @NotNull
     private Integer age;
-
     @Min(0)
     @Max(80)
-    @Column(name = "WorkingHours")
+    @NotNull
     private Integer workingHours;
-
-    @Column(name = "StartedWorking")
+    @NotNull
     private LocalDate startedWorkingDate = LocalDate.now();
-
-    @Column(name = "Gender")
+    @NotNull
     private Gender gender;
-
-    @Column(name = "Earned vacation days")
-    private Integer earnedVacationDays = 0;
-
     private  boolean enabled = true;
 
-    @Length(min = 5, max = 15)
-    private String username;
-
-    @Length(min = 10, max = 25)
-    private String password;
+    @NotNull
+    @OneToOne(mappedBy = "employee")
+    private User user;
 
     @OneToMany
+    @NotNull
     private List<Task> tasksToBeDone = new ArrayList<>();
 
     @OneToMany
+    @NotNull
     private List<Task> tasksDone = new ArrayList<>();
 
-    private Integer phone;
+    @NotNull
+    private int phone;
 
-    private Role role;
-
+    @NotNull
+    @Email
     private String email;
 
     public String getEmail() {
@@ -75,12 +66,12 @@ public class Employee {
         this.email = email;
     }
 
-    public Integer getId() {
-        return Id;
+    public long getId() {
+        return id;
     }
 
-    public void setId(int id) {
-        Id = id;
+    public void setId(long id) {
+        id = id;
     }
 
     public Integer getPhone() {
@@ -107,28 +98,12 @@ public class Employee {
         this.tasksDone = tasksDone;
     }
 
-    public Role getRole() {
-        return role;
+    public User getUser() {
+        return user;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getFirstName() {
@@ -177,14 +152,6 @@ public class Employee {
 
     public void setGender(Gender gender) {
         this.gender = gender;
-    }
-
-    public Integer getEarnedVacationDays() {
-        return earnedVacationDays;
-    }
-
-    public void setEarnedVacationDays(int earnedVacationDays) {
-        this.earnedVacationDays = earnedVacationDays;
     }
 
     public boolean isEnabled() {

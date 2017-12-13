@@ -1,20 +1,28 @@
 package com.mindaugasbar.memployeemanagement.authorization.domain;
 
+import com.mindaugasbar.memployeemanagement.employees.domain.Employee;
+
 import javax.persistence.*;
-import java.util.Set;
 
 @Entity
-@Table(name = "tuser")
+@Table(name = "user")
 public class User {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String username;
     private String password;
     private String passwordConfirm;
-    private Set<Role> roles;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @ManyToOne
+    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Role role;
+
+    @OneToOne
+    @JoinColumn(name = "employee_id")
+    private Employee employee;
+
     public Long getId() {
         return id;
     }
@@ -48,13 +56,19 @@ public class User {
         this.passwordConfirm = passwordConfirm;
     }
 
-    @ManyToMany
-    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-    public Set<Role> getRoles() {
-        return roles;
+    public Role getRole() {
+        return role;
     }
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 }

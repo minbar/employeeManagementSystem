@@ -1,4 +1,4 @@
-package com.mindaugasbar.memployeemanagement.domain;
+package com.mindaugasbar.memployeemanagement.employees.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

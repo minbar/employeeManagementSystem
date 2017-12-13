@@ -1,8 +1,8 @@
-package com.mindaugasbar.memployeemanagement.service.impl;
+package com.mindaugasbar.memployeemanagement.employees.service.impl;
 
-import com.mindaugasbar.memployeemanagement.dao.EmployeeDao;
-import com.mindaugasbar.memployeemanagement.domain.Employee;
-import com.mindaugasbar.memployeemanagement.service.StatisticsService;
+import com.mindaugasbar.memployeemanagement.employees.dao.EmployeeDao;
+import com.mindaugasbar.memployeemanagement.employees.domain.Employee;
+import com.mindaugasbar.memployeemanagement.employees.service.StatisticsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,16 +15,6 @@ import java.util.OptionalDouble;
 public class StatisticsServiceImpl implements StatisticsService {
 
     private EmployeeDao employeeDao;
-
-    @Override
-    public int getAllCollectedVacationDays() {
-        return employeeDao.findSumOfVacationDays();
-    }
-
-    @Override
-    public List<Employee> getEmployeesWhoHaveMoreVacation(int vacationDays) {
-        return employeeDao.findByEarnedVacationDaysGreaterThanEqual(vacationDays);
-    }
 
     @Override
     public double getAverageEmployeeAge() {
@@ -42,8 +32,8 @@ public class StatisticsServiceImpl implements StatisticsService {
     }
 
     @Override
-    public Period getTurnover(String username) {
-        LocalDate startedWorkingDate = employeeDao.getBeginningTimeByUsername(username);
+    public Period getTurnover(long id) {
+        LocalDate startedWorkingDate = employeeDao.getBeginningTimeById(id);
 
         return Period.between(startedWorkingDate, LocalDate.now());
     }
