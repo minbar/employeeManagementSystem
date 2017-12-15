@@ -36,6 +36,11 @@ public class Task {
 
     private int hoursWorked = 0;
 
+    @ManyToOne
+    @JoinColumn(name = "employee_id")
+    private Employee assignedToEmployee;
+
+
     @OneToMany
     private List<Comment> comments = new ArrayList<>();
 
@@ -106,4 +111,13 @@ public class Task {
     public void setComments(List<Comment> comments) {
         this.comments = comments;
     }
+
+    public Employee getAssignedToEmployee() {
+        return assignedToEmployee;
+    }
+
+    public void setAssignedToEmployee(Employee assignedToEmployee) {
+        this.assignedToEmployee = assignedToEmployee;
+    }
 }
+

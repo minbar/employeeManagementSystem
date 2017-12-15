@@ -21,19 +21,24 @@ public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+
     @NotNull
+    @Column(name = "first_name")
     private String firstName;
     @NotNull
+    @Column(name = "last_name")
     private String lastName;
     @Min(10)
     @Max(120)
     @NotNull
     private Integer age;
     @Min(0)
-    @Max(80)
+    @Max(100)
     @NotNull
+    @Column(name = "working_hours")
     private Integer workingHours;
     @NotNull
+    @Column(name = "started_working_date")
     private LocalDate startedWorkingDate = LocalDate.now();
     @NotNull
     private Gender gender;
@@ -43,13 +48,9 @@ public class Employee {
     @OneToOne(mappedBy = "employee")
     private User user;
 
-    @OneToMany
+    @OneToMany(mappedBy = "assignedToEmployee")
     @NotNull
-    private List<Task> tasksToBeDone = new ArrayList<>();
-
-    @OneToMany
-    @NotNull
-    private List<Task> tasksDone = new ArrayList<>();
+    private List<Task> tasksAssigned = new ArrayList<>();
 
     @NotNull
     private int phone;
@@ -83,19 +84,11 @@ public class Employee {
     }
 
     public List<Task> getTasksToBeDone() {
-        return tasksToBeDone;
+        return tasksAssigned;
     }
 
     public void setTasksToBeDone(List<Task> tasksToBeDone) {
-        this.tasksToBeDone = tasksToBeDone;
-    }
-
-    public List<Task> getTasksDone() {
-        return tasksDone;
-    }
-
-    public void setTasksDone(List<Task> tasksDone) {
-        this.tasksDone = tasksDone;
+        this.tasksAssigned = tasksToBeDone;
     }
 
     public User getUser() {

@@ -11,32 +11,6 @@
                 <h2>Average Employee Age</h2>
                 <p th:text="${averageAge}"/>
             </div>
-            <div class="col-md-3">
-                <h2>All Employee Vacation Days</h2>
-                <p th:text="${allEmployeeEarnedVacationDays}"/>
-            </div>
-            <div class="col-md-6">
-                <div class="container" th:if="${not #lists.isEmpty(employeesTooMuchVacation)}">
-                    <h2>Employees who have too much vacation</h2>
-                    <table class="table table-striped">
-                        <tr>
-                            <th>Id</th>
-                            <th>first name</th>
-                            <th>last name</th>
-                            <th>email</th>
-                            <th>Vacation days</th>
-
-                        </tr>
-                        <tr th:each="employee : ${employeesTooMuchVacation}">
-                            <td th:text="${employee.id}"></td>
-                            <td th:text="${employee.getFirstName()}"></td>
-                            <td th:text="${employee.getLastName()}"></td>
-                            <td th:text="${employee.getEmail()}"></td>
-                            <td th:text="${employee.getEarnedVacationDays()}"></td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
         </div>
     </div>
     </div>
