@@ -3,6 +3,7 @@ package com.mindaugasbar.memployeemanagement.employees.controller;
 import com.mindaugasbar.memployeemanagement.employees.domain.Employee;
 import com.mindaugasbar.memployeemanagement.exceptions.MissingEmployeeException;
 import com.mindaugasbar.memployeemanagement.employees.service.EmployeeService;
+import com.mindaugasbar.memployeemanagement.exceptions.WrongDateFormatException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -61,14 +62,15 @@ public class EmployeeController {
 
     @RequestMapping(path = "/addEmployee", method = RequestMethod.GET)
     public String signUp(Model model) {
-        Employee employee = new Employee();
-        model.addAttribute(employee);
+
+        model.addAttribute("employee", new Employee());
         return "addEmployee";
     }
 
     @RequestMapping(path = "/addEmployee", method = RequestMethod.POST)
     public String signUpPost(@ModelAttribute("employee") Employee employee, Model model) {
         employeeService.addEmployee(employee);
+        model.addAttribute("message", "the employee was added");
         model.addAttribute("employee", new Employee());
         return "addEmployee";
     }

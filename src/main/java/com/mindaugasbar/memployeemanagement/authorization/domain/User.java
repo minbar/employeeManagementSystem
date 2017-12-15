@@ -21,6 +21,8 @@ public class User {
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Role role;
 
+    private boolean enabled = true;
+
     @OneToOne
     @JoinColumn(name = "employee_id")
     private Employee employee;
@@ -71,5 +73,13 @@ public class User {
 
     public void setEmployee(Employee employee) {
         this.employee = employee;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 }

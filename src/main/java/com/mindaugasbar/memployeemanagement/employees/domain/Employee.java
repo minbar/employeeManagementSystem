@@ -3,6 +3,7 @@ package com.mindaugasbar.memployeemanagement.employees.domain;
 import com.mindaugasbar.memployeemanagement.authorization.domain.User;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
@@ -39,13 +40,12 @@ public class Employee {
     private Integer workingHours;
     @NotNull
     @Column(name = "started_working_date")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate startedWorkingDate = LocalDate.now();
     @NotNull
     private Gender gender;
-    private  boolean enabled = true;
 
-    @NotNull
-    @OneToOne(mappedBy = "employee")
+    @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL)
     private User user;
 
     @OneToMany(mappedBy = "assignedToEmployee")
@@ -145,13 +145,5 @@ public class Employee {
 
     public void setGender(Gender gender) {
         this.gender = gender;
-    }
-
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
     }
 }

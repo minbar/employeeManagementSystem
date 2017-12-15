@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head th:replace="header :: common-header" />
 <body>
     <div th:replace="header :: navbar" />
@@ -13,6 +14,9 @@
                     </div>
                 </div>
             </div>
+            <div class="row" th:if="${message != null}">
+                <h3 th:text="${message}" />
+            </div>
             <div class="row main">
                 <div class="main-login main-center">
                     <form class="form-horizontal" method="post" th:action="@{/addEmployee}">
@@ -22,7 +26,7 @@
                             <div class="cols-sm-10">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-                                    <input type="text" class="form-control" th:value="${employee.getFirstName()}" id="firstName" name="firstName" roleId="firstname"  placeholder="Enter your first name" required="required"/>
+                                    <input type="text" class="form-control" th:value="${employee.getFirstName()}" id="firstName" name="firstName" roleId="firstname"  placeholder="Enter first name" required="required"/>
                                 </div>
                             </div>
                         </div>
@@ -32,10 +36,51 @@
                             <div class="cols-sm-10">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-                                    <input type="text" class="form-control" th:value="${employee.getLastName()}" id="lastName" name="lastName" roleId="lastName"  placeholder="Enter your last name" required="required"/>
+                                    <input type="text" class="form-control" th:value="${employee.getLastName()}" id="lastName" name="lastName" roleId="lastName"  placeholder="Enter last name" required="required"/>
                                 </div>
                             </div>
                         </div>
+
+                        <div class="form-group">
+                            <label for="age" class="cols-sm-2 control-label">Age</label>
+                            <div class="cols-sm-10">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                                    <input type="text" class="form-control" th:value="${employee.getAge()}" id="age" name="age" roleId="age"  placeholder="Enter age" required="required"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="gender" class="cols-sm-2 control-label">Gender</label>
+                            <div class="cols-sm-10">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                                    <input type="text" class="form-control" th:value="${employee.getGender()}" id="gender" name="gender" roleId="gender"  placeholder="Enter gender" required="required"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="startedWorkingDate" class="cols-sm-2 control-label">Started Working Date</label>
+                            <div class="cols-sm-10">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                                    <input type="text" class="form-control" th:value="${startedWorkingDate}" id="startedWorkingDate" name="startedWorkingDate" roleId="startedWorkingDate"  placeholder="YYYY-MM-DD" required="required"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="workingHours" class="cols-sm-2 control-label">Working Hours</label>
+                            <div class="cols-sm-10">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                                    <input type="text" class="form-control" th:value="${employee.getWorkingHours()}" id="workingHours" name="workingHours" roleId="workingHours"  placeholder="how many hours employee works" required="required"/>
+                                </div>
+                            </div>
+                        </div>
+
 
                         <div class="form-group">
                             <label for="phone" class="cols-sm-2 control-label">Phone</label>
@@ -48,36 +93,11 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="email" class="cols-sm-2 control-label">Your Email</label><span class="bg-danger pull-right" th:if="${emailExists}">Email already exists</span>
+                            <label for="email" class="cols-sm-2 control-label">Email</label><span class="bg-danger pull-right" th:if="${emailExists}">Email already exists</span>
                             <div class="cols-sm-10">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-                                    <input type="text" class="form-control" th:value="${employee.getEmail()}" id="email" name="email" roleId="email"  placeholder="Enter your Email" required="required"/>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="username" class="cols-sm-2 control-label">Username</label><span class="bg-danger pull-right" th:if="${usernameExists}">Username already exists</span>
-                            <div class="cols-sm-10">
-                                <div class="input-group">
-                                    <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
-                                    <input type="text" class="form-control" th:value="${employee.getUsername()}" id="username" name="username" roleId="username"  placeholder="Enter your Username" required="required"/>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="password" class="cols-sm-2 control-label">Password</label>
-                            <div class="cols-sm-10">
-                                <div class="input-group">
-                                    <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                                    <input type="password" class="form-control" th:value="${employee.getPassword()}" id="password" name="password" roleId="password"  placeholder="Enter your Password" required="required"/>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input id="showPassword" type="checkbox" />Show Password
-                                    </label>
+                                    <input type="text" class="form-control" th:value="${employee.getEmail()}" id="email" name="email" roleId="email"  placeholder="Enter Email" required="required"/>
                                 </div>
                             </div>
                         </div>
