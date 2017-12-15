@@ -72,7 +72,7 @@ public class Employee {
     }
 
     public void setId(long id) {
-        id = id;
+        this.id = id;
     }
 
     public Integer getPhone() {

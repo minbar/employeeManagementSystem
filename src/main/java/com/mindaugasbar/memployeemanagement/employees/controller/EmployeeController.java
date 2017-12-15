@@ -39,7 +39,7 @@ public class EmployeeController {
     @RequestMapping(path = "/editEmployee/{id}", method = RequestMethod.POST)
     public String editEmployeePost(@PathVariable(value = "id") long id, @ModelAttribute("employee") Employee employee) {
         try {
-            Employee existring = employeeService.getEmployeeById(id);
+            Employee existing = employeeService.getEmployeeById(id);
             employeeService.updateEmployeeNonNullFields(employee);
         } catch (MissingEmployeeException exception) {
             System.out.println(exception.getMessage());

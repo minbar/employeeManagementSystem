@@ -1,6 +1,5 @@
 package com.mindaugasbar.memployeemanagement.authorization.service.impl;
 
-import com.mindaugasbar.memployeemanagement.authorization.dao.RoleDao;
 import com.mindaugasbar.memployeemanagement.authorization.dao.UserDao;
 import com.mindaugasbar.memployeemanagement.authorization.domain.Role;
 import com.mindaugasbar.memployeemanagement.authorization.domain.User;
@@ -8,14 +7,10 @@ import com.mindaugasbar.memployeemanagement.authorization.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-import java.util.HashSet;
-
 @Service
 public class UserServiceImpl implements UserService {
 
     private UserDao userDao;
-    private RoleDao roleDao;
 
     @Override
     public void save(User user, Role role) {
@@ -35,10 +30,5 @@ public class UserServiceImpl implements UserService {
     @Autowired
     public void setUserDao(UserDao userDao) {
         this.userDao = userDao;
-    }
-
-    @Autowired
-    public void setRoleDao(RoleDao roleDao) {
-        this.roleDao = roleDao;
     }
 }
