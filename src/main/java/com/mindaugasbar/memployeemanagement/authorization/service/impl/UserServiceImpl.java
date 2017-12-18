@@ -6,11 +6,15 @@ import com.mindaugasbar.memployeemanagement.authorization.domain.Role;
 import com.mindaugasbar.memployeemanagement.authorization.domain.User;
 import com.mindaugasbar.memployeemanagement.authorization.service.RoleService;
 import com.mindaugasbar.memployeemanagement.authorization.service.UserService;
+import com.mindaugasbar.memployeemanagement.exceptions.MissingUserException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Objects;
+
+import static java.lang.String.format;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -34,6 +38,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User findById(long id) {
+        return userDao.findById(id);
+    }
+
+    @Transactional
+    @Override
+    public void updateUser(User user) throws MissingUserException {
+        checkUserExists(user.getId());
+        userDao.save(user);
+    }
+    @Override
     public User findByUsername(String username) {
         return userDao.findByUsername(username);
     }
@@ -46,5 +61,12 @@ public class UserServiceImpl implements UserService {
     @Autowired
     public void setRoleService(RoleService roleService) {
         this.roleService = roleService;
+    }
+
+    private void checkUserExists(long id) throws MissingUserException {
+        if(findById(id) == null) {
+            String message = format("the emplooy with id:[%d] could not be found", id);
+            throw new MissingUserException(message);
+        }
     }
 }

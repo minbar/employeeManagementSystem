@@ -8,11 +8,13 @@ import com.mindaugasbar.memployeemanagement.authorization.service.UserService;
 import com.mindaugasbar.memployeemanagement.authorization.validator.UserValidator;
 import com.mindaugasbar.memployeemanagement.employees.domain.Employee;
 import com.mindaugasbar.memployeemanagement.employees.service.EmployeeService;
+import com.mindaugasbar.memployeemanagement.exceptions.MissingUserException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -33,6 +35,38 @@ public class UserController {
         List<User> users = userService.getUsers();
         model.addAttribute("users", users);
         return "users";
+    }
+
+    @RequestMapping(path = "/editUser/{id}", method = RequestMethod.GET)
+    public String editUser(@PathVariable(value = "id") long id, Model model) {
+        User user = userService.findById(id);
+        List<Employee> employeesWithoutUser = employeeService.getEmployeesWithNoAccount();
+        List<String> roleNames = roleService.getAllRoleNames();
+        model.addAttribute("user", user);
+        model.addAttribute("employeesWithoutAccount", employeesWithoutUser);
+        model.addAttribute("roleNames", roleNames);
+
+        return "editUser";
+    }
+
+    @RequestMapping(path = "/editUser/{id}", method = RequestMethod.POST)
+    public String editUserPost(@PathVariable(value = "id") long id, @ModelAttribute(value = "roleName") String roleName,
+                               @ModelAttribute("employeeId") Integer employeeId, @ModelAttribute(value = "user") User user) throws MissingUserException {
+
+        if(employeeId == null){
+            user.setEmployee(null);
+        } else {
+            Employee newEmployee = employeeService.getEmployeeById(employeeId);
+            Objects.requireNonNull(newEmployee);
+            user.setEmployee(newEmployee);
+        }
+
+        Role newRole = roleService.findByName(roleName);
+        Objects.requireNonNull(newRole);
+        user.setRole(newRole);
+
+        userService.updateUser(user);
+        return "editUser";
     }
 
     @RequestMapping(path= "/addUser", method = RequestMethod.GET)

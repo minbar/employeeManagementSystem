@@ -5,6 +5,9 @@
 <body>
     <div th:replace="header :: navbar"/>
     <div class="wrapper">
+        <div class="row">
+            <button class="btn btn-default"><a href="/addUser">Add User</a></button>
+        </div>
         <div class="container" th:if="${not #lists.isEmpty(users)}">
             <h2>Users list</h2>
             <table class="table table-striped">

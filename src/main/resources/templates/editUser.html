@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="header :: common-header"/>
+<body>
+<div th:replace="header :: navbar"/>
+<div class="wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form_main">
+                    <h4 class="heading"><strong>Edit </strong> User <span></span></h4>
+                    <div class="form">
+                        <form th:action="'/editUser/' + ${user.getId()}" method="post" id="contactFrm" name="contactFrm">
+                            <input class="form-control txt" id="id" type="hidden" name="id" th:value="${user.getId()}" required="required" />
+
+                            <label for="username">Username</label>
+                            <input class="form-control txt" name="username" id="username" th:value="${user.getUsername()}" required="required"/>
+                            <label for="password">Password</label>
+                            <input class="form-control txt" name="password" id="password" th:value="${user.getPassword()}" required="required"/>
+                            <label for="enabled">Enabled</label>
+                            <select name="enabled" id="enabled" required="required">
+                                <option th:value="${true}" selected="selected">True</option>
+                                <option th:value="${false}">False</option>
+                            </select>
+                            <label for="roleName">Update Role</label>
+                            <select roleId="roleName" name="roleName" id="roleName" required="required">
+                                <option th:each="roleName : ${roleNames}" th:value="${roleName}">
+                                    <p th:text="${roleName}"/>
+                                </option>
+                            </select>
+                            <div class="form-group">
+                                <label for="employeeId" class="cols-sm-2 control-label">Change Assigned Employee</label>
+                                <div class="cols-sm-10">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                                        <select name="employeeId" id="employeeId" required="required" >
+                                            <span th:if="${user.getEmployee() != null}">
+                                                <option th:value="${user.getEmployee().getId()}" selected = "selected">
+                                                    <p th:text="${user.getEmployee().getFirstName()} + ' ' + ${user.getEmployee().getLastName()}"/>
+                                                </option>
+                                            </span>
+                                            <span th:if="${user.getEmployee() == null}">
+                                                <option th:value="${user.getEmployee()}" selected="selected">
+                                                   <p>not assigned</p>
+                                                </option>
+                                            </span>
+                                            <option th:value="${null}">---</option>
+                                            <option th:each="employee : ${employeesWithoutAccount}" th:value="${employee.getId()}" >
+                                                <p th:text="${employee.getFirstName()} + ' ' + ${employee.getLastName()}"/>
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="submit" value="submit" name="submit" class="txt2"/>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
