@@ -1,5 +1,6 @@
 package com.mindaugasbar.memployeemanagement.employees.dao;
 
+import com.mindaugasbar.memployeemanagement.authorization.domain.User;
 import com.mindaugasbar.memployeemanagement.employees.domain.Employee;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -39,4 +40,6 @@ public interface EmployeeDao extends CrudRepository<Employee, Long> {
 
     @Query("select startedWorkingDate from Employee where id = :id")
     LocalDate getBeginningTimeById(long id);
+
+    List<Employee> findAllByUserNull();
 }

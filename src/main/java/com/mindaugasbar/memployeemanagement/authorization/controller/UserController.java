@@ -5,6 +5,8 @@ import com.mindaugasbar.memployeemanagement.authorization.domain.User;
 import com.mindaugasbar.memployeemanagement.authorization.service.SecurityService;
 import com.mindaugasbar.memployeemanagement.authorization.service.UserService;
 import com.mindaugasbar.memployeemanagement.authorization.validator.UserValidator;
+import com.mindaugasbar.memployeemanagement.employees.domain.Employee;
+import com.mindaugasbar.memployeemanagement.employees.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,31 +15,35 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.List;
+
 @Controller
 public class UserController {
 
     private UserService userService;
     private SecurityService securityService;
     private UserValidator userValidator;
+    private EmployeeService employeeService;
 
-    @RequestMapping(value = "/registration", method = RequestMethod.GET)
+    @RequestMapping(path= "/addUser", method = RequestMethod.GET)
     public String registration(Model model) {
-        model.addAttribute("userForm", new User());
+        model.addAttribute("user", new User());
+        model.addAttribute("employeesWithoutAccount", employeeService.getEmployeesWithNoAccount());
 
-        return "registration";
+        return "addUser";
     }
 
-    @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String registration(@ModelAttribute("userForm") User userForm, @ModelAttribute("role") Role role, BindingResult bindingResult, Model model) {
-        userValidator.validate(userForm, bindingResult);
+    @RequestMapping(path = "/addUser", method = RequestMethod.POST)
+    public String registration(@ModelAttribute("user") User user, @ModelAttribute("role") String roleName, BindingResult bindingResult, Model model) {
+        userValidator.validate(user, bindingResult);
 
         if (bindingResult.hasErrors()) {
-            return "registration";
+            return "addUser";
         }
 
-        userService.save(userForm, role);
+        userService.save(user, roleName);
 
-        securityService.autologin(userForm.getUsername(), userForm.getPasswordConfirm());
+        securityService.autologin(user.getUsername(), user.getPasswordConfirm());
 
         return "redirect:/index";
     }
@@ -66,5 +72,10 @@ public class UserController {
     @Autowired
     public void setUserValidator(UserValidator userValidator) {
         this.userValidator = userValidator;
+    }
+
+    @Autowired
+    public void setEmployeeService(EmployeeService employeeService) {
+        this.employeeService = employeeService;
     }
 }

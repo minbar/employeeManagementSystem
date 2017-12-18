@@ -56,4 +56,10 @@ public interface EmployeeService {
     Employee updateEmployeeDetails(Employee employee) throws MissingEmployeeException;
 
     Employee updateEmployeeNonNullFields(Employee employee) throws MissingEmployeeException;
+
+    /**
+     * Get All of the employees who do not have a user assigned to them
+     * @return a list of employees which do not have a user assigned to them.
+     */
+    List<Employee> getEmployeesWithNoAccount();
 }

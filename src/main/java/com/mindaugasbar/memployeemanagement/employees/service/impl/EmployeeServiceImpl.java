@@ -70,6 +70,11 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employeeDao.save(employee);
     }
 
+    @Override
+    public List<Employee> getEmployeesWithNoAccount() {
+        return employeeDao.findAllByUserNull();
+    }
+
     @Transactional
     @Override
     public Employee updateEmployeeNonNullFields(Employee employee) throws MissingEmployeeException {
@@ -99,8 +104,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     private Employee checkEmployeeExistsById(long id) throws MissingEmployeeException {
         Employee employee = employeeDao.findById(id);
         if (employee == null) {
-            final String message = format("the employee with the first name:[%s], last name:[%s]" +
-                    "username: [%s]", employee.getFirstName(), employee.getLastName(), employee.getUser().getUsername());
+            final String message = format("the employee was not found");
             throw new MissingEmployeeException(message);
         }
         return employee;

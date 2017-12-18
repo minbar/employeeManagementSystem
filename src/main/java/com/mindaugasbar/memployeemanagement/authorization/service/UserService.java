@@ -5,7 +5,7 @@ import com.mindaugasbar.memployeemanagement.authorization.domain.User;
 
 public interface UserService {
 
-    void save(User user, Role role);
+    void save(User user, String role);
 
     User findByUsername(String username);
 }
