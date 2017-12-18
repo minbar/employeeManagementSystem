@@ -46,20 +46,34 @@
                         <div class="cols-sm-10">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-                                <input type="text" class="form-control" th:value="${user.getPasswordConfirm()}" id="passwordConfirm" name="passwordConfirm" roleId="passwordConfirm"
+                                <input type="password" class="form-control" th:value="${user.getPasswordConfirm()}" id="passwordConfirm" name="passwordConfirm" roleId="passwordConfirm"
                                        placeholder="confirm your password" required="required"/>
                             </div>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="enabled" class="cols-sm-2 control-label">Is User Enabled to Login</label>
+                        <label for="roleName" class="cols-sm-2 control-label">Role</label>
                         <div class="cols-sm-10">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-                                <select name="enabled" id="enabled">
+                                <select roleId="roleName" name="roleName" id="roleName" required="required">
+                                    <option th:each="roleName : ${roleNames}" th:value="${roleName}">
+                                        <p th:text="${roleName}"/>
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="employeeId" class="cols-sm-2 control-label">User is created for employee:</label>
+                        <div class="cols-sm-10">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                                <select name="employeeId" id="employeeId" >
                                     <option th:value="${null}" selected = "selected"> </option>
-                                    <option th:each="employee : ${employeesWithoutAccount}" th:value="${employee}">
+                                    <option th:each="employee : ${employeesWithoutAccount}" th:value="${employee.getId()}" >
                                         <p th:text="${employee.getFirstName()} + ' ' + ${employee.getLastName()}"/>
                                     </option>
                                 </select>

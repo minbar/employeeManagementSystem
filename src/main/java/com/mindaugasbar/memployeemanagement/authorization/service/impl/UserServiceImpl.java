@@ -4,6 +4,7 @@ import com.mindaugasbar.memployeemanagement.authorization.dao.RoleDao;
 import com.mindaugasbar.memployeemanagement.authorization.dao.UserDao;
 import com.mindaugasbar.memployeemanagement.authorization.domain.Role;
 import com.mindaugasbar.memployeemanagement.authorization.domain.User;
+import com.mindaugasbar.memployeemanagement.authorization.service.RoleService;
 import com.mindaugasbar.memployeemanagement.authorization.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,12 +15,13 @@ import java.util.Objects;
 public class UserServiceImpl implements UserService {
 
     private UserDao userDao;
-    private RoleDao roleDao;
+    private RoleService roleService;
     @Override
     public void save(User user, String roleName) {
-        user.setPassword(user.getPassword());
-        Role role = roleDao.findByName(roleName);
         Objects.requireNonNull(roleName);
+        user.setPassword(user.getPassword());
+        Role role = roleService.findByName(roleName);
+        Objects.requireNonNull(role);
         user.setRole(role);
 
         userDao.save(user);
@@ -28,7 +30,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findByUsername(String username) {
         return userDao.findByUsername(username);
-
     }
 
     @Autowired
@@ -37,7 +38,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Autowired
-    public void setRoleDao(RoleDao roleDao) {
-        this.roleDao = roleDao;
+    public void setRoleService(RoleService roleService) {
+        this.roleService = roleService;
     }
 }
