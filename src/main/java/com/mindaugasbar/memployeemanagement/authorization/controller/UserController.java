@@ -28,6 +28,13 @@ public class UserController {
     private RoleService roleService;
     private EmployeeService employeeService;
 
+    @RequestMapping(path = "/users", method = RequestMethod.GET)
+    public String users(Model model) {
+        List<User> users = userService.getUsers();
+        model.addAttribute("users", users);
+        return "users";
+    }
+
     @RequestMapping(path= "/addUser", method = RequestMethod.GET)
     public String registration(Model model) {
 

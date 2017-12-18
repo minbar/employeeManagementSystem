@@ -1,10 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="header :: common-header"/>
 <body>
-
+    <div th:replace="header :: navbar"/>
+    <div class="wrapper">
+        <div class="container" th:if="${not #lists.isEmpty(users)}">
+            <h2>Users list</h2>
+            <table class="table table-striped">
+                <tr>
+                    <th>Id</th>
+                    <th>username</th>
+                    <th>password</th>
+                    <th>enabled</th>
+                    <th>employee fullname</th>
+                </tr>
+                <tr th:each="user : ${users}">
+                    <td th:text="${user.id}"></td>
+                    <td th:text="${user.getUsername()}"></td>
+                    <td th:text="${user.getPassword()}"></td>
+                    <td th:text="${user.isEnabled()}"></td>
+                    <span th:if="${user.getEmployee() != null}">
+                        <td th:text="${user.getEmployee().getFirstName() + ' ' + user.getEmployee().getLastName()}"></td>
+                    </span>
+                    <span th:if="${user.getEmployee() == null}">
+                        <td th:text="---"></td>
+                    </span>
+                    <td><form th:action="'/editUser/' + ${user.getId()}" method="get"><button class="btn btn-default" type="submit" name="editEmployee" >Edit</button></form></td>
+                    <td><form th:action="'/deleteUser/' + ${user.getId()}" method="get"><button class="btn btn-danger" type="submit" name="deleteEmployee">Delete</button></form> </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div th:replace="header :: body-bottom-scripts"/>
 </body>
 </html>
