@@ -6,10 +6,12 @@ import com.mindaugasbar.memployeemanagement.authorization.domain.Role;
 import com.mindaugasbar.memployeemanagement.authorization.domain.User;
 import com.mindaugasbar.memployeemanagement.authorization.service.RoleService;
 import com.mindaugasbar.memployeemanagement.authorization.service.UserService;
+import com.mindaugasbar.memployeemanagement.employees.domain.Employee;
 import com.mindaugasbar.memployeemanagement.exceptions.MissingUserException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.PreRemove;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Objects;
@@ -48,6 +50,15 @@ public class UserServiceImpl implements UserService {
         checkUserExists(user.getId());
         userDao.save(user);
     }
+
+    @Transactional
+    @Override
+    public void deleteById(long id) throws MissingUserException {
+        checkUserExists(id);
+        User user = findById(id);
+        userDao.deleteById(user.getId());
+    }
+
     @Override
     public User findByUsername(String username) {
         return userDao.findByUsername(username);
@@ -65,8 +76,10 @@ public class UserServiceImpl implements UserService {
 
     private void checkUserExists(long id) throws MissingUserException {
         if(findById(id) == null) {
-            String message = format("the emplooy with id:[%d] could not be found", id);
+            String message = format("the user with id:[%d] could not be found", id);
             throw new MissingUserException(message);
         }
     }
+
+
 }

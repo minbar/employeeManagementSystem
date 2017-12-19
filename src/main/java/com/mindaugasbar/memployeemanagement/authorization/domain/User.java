@@ -82,4 +82,9 @@ public class User {
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
+
+    @PreRemove
+    private void removeUser() {
+        this.getEmployee().setUser(null);
+    }
 }

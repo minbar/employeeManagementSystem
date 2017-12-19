@@ -36,4 +36,11 @@ public interface UserService {
      * @throws MissingUserException is thrown if a user with such an id does not exist.
      */
     void updateUser(User user) throws MissingUserException;
+
+    /**
+     * Delete the given user.
+     * @param id the given user.
+     * @throws MissingUserException the missing user exception.
+     */
+    void deleteById(long id) throws MissingUserException;
 }

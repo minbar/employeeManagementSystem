@@ -69,6 +69,12 @@ public class UserController {
         return "editUser";
     }
 
+    @RequestMapping(path = "deleteUser/{id}", method = RequestMethod.GET)
+    public String deleteUser(@PathVariable(value = "id") long id) throws MissingUserException {
+        userService.deleteById(id);
+        return "redirect:/users";
+    }
+
     @RequestMapping(path= "/addUser", method = RequestMethod.GET)
     public String registration(Model model) {
 

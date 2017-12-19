@@ -2,13 +2,14 @@ package com.mindaugasbar.memployeemanagement.employees.dao;
 
 import com.mindaugasbar.memployeemanagement.authorization.domain.User;
 import com.mindaugasbar.memployeemanagement.employees.domain.Employee;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import java.time.LocalDate;
 import java.util.List;
 
-public interface EmployeeDao extends CrudRepository<Employee, Long> {
+public interface EmployeeDao extends JpaRepository<Employee, Long> {
 
     /**
      * Find the given employee by their username.
